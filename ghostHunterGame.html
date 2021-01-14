@@ -1,0 +1,244 @@
+<!DOCYTPE html>
+<html>
+<head>
+	<title>Ghost Hunter</title>
+	<link href="style1.css" rel="stylesheet" type="text/css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<style>
+#container{
+	width: 1200px;
+	height: 600px;
+	margin: auto;
+	display: block;
+	overflow: hidden;
+	background-image: url("cemetery.jpg");
+	text-align: center;
+}
+#box{
+	width: 100px;
+	height: 100px;
+	transition: top 2s, left 2s, background 1s;
+	cursor: crosshair;
+	position: absolute;
+	display: none;
+	z-index: 100;
+}
+#box2{
+	width: 100px;
+	height: 100px;
+	transition: top 4s, left 4s;
+	cursor: crosshair;
+	position: absolute;
+	display: none;
+	z-index: 90;
+}
+#replay{
+	color: white;
+	text-shadow: 5px 5px 10px red;
+	position: relative;
+	top: 170px;
+	right: 70px;
+	display: none;
+}
+#timeBonus{
+	display: none;
+	position: absolute;
+	z-index: 120;
+}
+body{
+	background: black;
+	cursor: crosshair;
+}
+
+h1{
+	color: white;
+	text-shadow: 5px 5px 10px red;
+	cursor: pointer;
+}
+
+p{
+	color: white;
+	font-size: 25px;
+	text-shadow: 5px 5px 10px red;
+}
+ 
+
+</style>
+</head>
+<body>
+
+<audio autoplay loop>
+	<source src="necromanticRitual.mp3" type="audio/mpeg">
+</audio>
+
+<div id="container">
+	<div style="text-align: left; display: inline-block; float: left">
+		<h1 id="headerName">Ghost Hunter</h1>
+		<p id="demo">Counter: 30 seconds</p>
+		<p style="display: inline; text-align: left !important" id="score">Score: 0 hits</p>
+	</div>
+
+	<div style="top: 0px; left: 0px" id="box">
+		<img id="slimerGhost" src="slimer.png"/>
+	</div>
+	
+	<div style="top: 0px; left: 0px" id="box2">
+		<img id="skeletonGhost" src="skeleton.png"/>
+	</div>
+	
+	<img id="timeBonus" src="timeBonus1.png"/>
+	
+	<h1 id="replay">Replay?</h1>
+	
+</div>
+<script>
+
+var demo = document.getElementById("demo");
+var score = document.getElementById("score");
+var counter = 30;
+var myVar = setInterval(function(){change()}, 1000);
+var box = document.getElementById("box");
+var box2 = document.getElementById("box2");
+var hits = 0;
+var myVar2 = setInterval(function(){move()}, 1000);
+
+
+
+var myVar3 = setInterval(function(){move2()}, 4000);
+var replay = document.getElementById("replay");
+var slimerGhost = document.getElementById("slimerGhost");
+var skeletonGhost = document.getElementById("skeletonGhost");
+var timeBonus = document.getElementById("timeBonus");
+var headerName = document.getElementById("headerName");
+
+(function(){
+
+if(counter == 29){
+
+box.style.display = "inline";
+box2.style.display = "inline";
+
+}
+
+})();
+
+/*//easter Egg
+score.onclick=function(){
+
+if(hits == "5"){
+
+clearInterval(myVar2);
+
+}
+
+}*/
+
+//function for counter
+function change(){
+
+counter--
+demo.innerHTML = "Counter: " + counter + " seconds";
+if(counter == 0){
+	clearInterval(myVar);
+	clearInterval(myVar2);
+	clearInterval(myVar3);
+	demo.innerHTML = "Game Over";
+	box.style.display = "none";
+	box2.style.display = "none";
+	replay.style.display = "inline";
+}
+}
+//function for increasing score and add bang to slimerGhost
+box.onclick=function(){
+
+hits++;
+score.innerHTML = "Score: " + hits + " hits";
+slimerGhost.src = "bang.png";
+}
+//change bang back to slimerGhost
+box.onmouseout=function(){
+
+slimerGhost.src = "slimer.png";
+
+}
+//function for increasig score and add bang to skeletonGhost
+box2.onclick=function(){
+
+hits += 2;
+score.innerHTML = "Score: " + hits + " hits";
+skeletonGhost.src = "bang.png";
+}
+//change bang back to skeletonGhost
+box2.onmouseout=function(){
+
+skeletonGhost.src = "skeleton.png";
+
+}
+//function for moving boxes, disappearing
+function move(){
+
+var x = Math.floor(Math.random()*1200);
+var y = Math.floor(Math.random()*400);
+var z = Math.floor(Math.random()*5);
+
+if(z == 4){
+	box.style.display = "none";
+}
+else{
+	box.style.display = "block";
+}
+
+box.style.left = x + "px";
+box.style.top = y + "px";
+
+}
+
+function move2(){
+
+var x = Math.floor(Math.random()*1000);
+var y = Math.floor(Math.random()*300);
+var z = Math.floor(Math.random()*4);
+
+if(z == 3){
+	box2.style.display = "block";
+}
+else{
+	box2.style.display = "none";
+}
+
+box2.style.left = x + "px";
+box2.style.top = y + "px";
+
+}
+
+//make time bonus appear
+setTimeout(function(){
+
+var x = Math.floor(Math.random()*1000);
+var y = Math.floor(Math.random()*300);
+
+if(hits > 20){
+
+timeBonus.style.left = x + "px";
+timeBonus.style.top = y + "px";
+$(timeBonus).fadeIn(3000);
+}
+}, 21000);
+
+timeBonus.onclick=function(){
+
+counter = counter + hits;
+timeBonus.style.display = "none";
+
+}
+
+//reset game
+replay.onclick=function(){
+
+location.reload();
+
+}
+
+</script>
+</body>
+</html>

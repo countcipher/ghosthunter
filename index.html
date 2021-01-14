@@ -1,0 +1,70 @@
+<!DOCYTPE html>
+<html>
+<head>
+	<title>Ghost Hunter</title>
+	<link href="style1.css" rel="stylesheet" type="text/css"/>
+<style>
+#container{
+	width: 1200px;
+	height: 600px;
+	margin: auto;
+	display: block;
+	overflow: hidden;
+	background-image: url("cemetery.jpg");
+	text-align: center;
+}
+#play{
+	cursor: pointer;
+}
+body{
+	background: black;
+	cursor: crosshair;
+}
+
+h1{
+	color: white;
+	text-shadow: 5px 5px 10px red;
+}
+
+p{
+	color: white;
+	font-size: 25px;
+	text-shadow: 5px 5px 10px red;
+}
+ 
+
+</style>
+</head>
+<body>
+
+<audio autoplay loop>
+	<source src="necromanticRitual.mp3" type="audio/mpeg">
+</audio>
+
+<div id="container">
+	
+	<h1>Ghost Hunter</h1>
+
+	<img src="howToPlay.png"/>
+	
+	<h1 id="play">Play</h1>
+	
+</div>
+<script>
+
+var play = document.getElementById("play");
+
+setInterval(function(){
+
+(play.style.color == "white") ? play.style.color = "red" : play.style.color = "white";
+}, 1000);
+
+play.onclick=function(){
+
+window.location.assign("ghosthuntergame.html");
+
+}
+
+</script>
+</body>
+</html>
